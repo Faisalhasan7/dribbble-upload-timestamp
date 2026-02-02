@@ -1,146 +1,76 @@
-# Dribbble Upload Timestamp
+# Dribbble Timestamp Checker
 
-A lightweight Chrome extension that displays upload timestamps on Dribbble posts, making it easy to see when designs were originally published.
+A Chrome extension that displays timestamps for Dribbble posts, making it easy to see when designs were published.
 
-![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-blue?style=flat-square&logo=googlechrome)
-![Manifest V3](https://img.shields.io/badge/Manifest-V3-green?style=flat-square)
-![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
+## Features
 
-## ✨ Features
+- **Extracts Upload Date**: Reads the `uploadDate` from Dribbble's JSON-LD schema data
+- **Beautiful Display**: Shows a prominent, styled card with the upload date
+- **Time Ago Format**: Displays "X days/hours/minutes ago" for easy reference
+- **Full Timestamp**: Also shows the complete date and time
+- **Auto-Detection**: Automatically works when you open any Dribbble shot
+- **Navigation Support**: Works with Dribbble's AJAX navigation
 
-- **📅 Automatic Timestamp Extraction** - Retrieves upload dates from Dribbble's JSON-LD schema data
-- **🎨 Beautiful Display** - Shows a styled card with gradient background at the top of each shot
-- **⏰ Human-Readable Format** - Displays both "X days/hours/minutes ago" and full date/time
-- **🔄 AJAX Navigation Support** - Automatically updates when browsing between shots
-- **🚀 Zero Configuration** - Works immediately after installation
+## Installation
 
-## 📸 Screenshot
+1. Download or clone this extension folder
+2. Open Chrome and go to `chrome://extensions/`
+3. Enable "Developer mode" in the top right corner
+4. Click "Load unpacked"
+5. Select the `dribbble-timestamp-checker` folder
+6. The extension is now installed!
 
-The extension displays a purple gradient card showing:
-- Time since upload (e.g., "3 days ago")
-- Full timestamp with date and time
-
-## 🚀 Installation
-
-### From Source
-
-1. Clone or download this repository:
-   ```bash
-   git clone https://github.com/yourusername/dribbble-upload-timestamp.git
-   ```
-
-2. Open Chrome and navigate to `chrome://extensions/`
-
-3. Enable **Developer mode** (toggle in the top-right corner)
-
-4. Click **Load unpacked**
-
-5. Select the `dribbble-upload-timestamp` folder
-
-6. The extension icon should appear in your toolbar!
-
-## 📖 Usage
+## Usage
 
 1. Visit [Dribbble.com](https://dribbble.com)
-2. Click on any shot to open its detail page
-3. The timestamp card will automatically appear at the top of the shot details
-4. Browse different shots - timestamps update automatically!
+2. **Click on any shot** to open the detail page
+3. You'll see a beautiful purple gradient card showing:
+   - How long ago the shot was uploaded
+   - The full date and time
+4. The timestamp appears at the top of the shot details
+5. Works automatically as you browse different shots
 
-**Developer Console:**
-- Press `F12` to open the console
-- Look for emoji-prefixed messages like "✅ Found uploadDate" and "🎨 Timestamp displayed successfully!"
+**Console Messages:**
+- Open Developer Console (F12) to see confirmation messages
+- "✅ Found uploadDate" means the extension found the timestamp
+- "🎨 Timestamp displayed successfully!" means it's visible on the page
 
-## 🛠️ Technical Details
+## Files
 
-### How It Works
+- `manifest.json` - Extension configuration
+- `content.js` - Main script that finds and displays timestamps
+- `styles.css` - Styling for timestamp badges
+- `popup.html` - Extension popup interface
+- `icon*.png` - Extension icons
+
+## How It Works
 
 The extension:
-1. Monitors Dribbble shot pages using MutationObserver
-2. Extracts `uploadDate` from JSON-LD structured data
-3. Formats timestamps using JavaScript Date API
-4. Dynamically injects a styled card into the page DOM
+1. Monitors Dribbble shot pages for JSON-LD schema data
+2. Extracts the `uploadDate` field from the schema
+3. Formats and displays it in a beautiful card at the top of the shot
+4. Automatically updates when you navigate to different shots
 
-### File Structure
+The timestamp data comes from Dribbble's own structured data (JSON-LD), which is embedded in every shot page for SEO purposes.
 
-```
-dribbble-upload-timestamp/
-├── manifest.json       # Extension configuration (Manifest V3)
-├── content.js          # Main script for timestamp extraction and display
-├── styles.css          # Styling for timestamp card
-├── popup.html          # Extension popup UI
-├── icon16.png          # 16x16 icon
-├── icon48.png          # 48x48 icon
-├── icon128.png         # 128x128 icon
-└── README.md           # Documentation
-```
+## Customization
 
-### Permissions
+You can modify the appearance by editing `styles.css`:
+- Change badge colors in `.timestamp-checker-badge`
+- Adjust font sizes and spacing
+- Modify the gradient background
 
-- `activeTab` - Access to the current tab
-- `scripting` - Inject content scripts
-- `https://dribbble.com/*` - Host permission for Dribbble
+## Troubleshooting
 
-## 🎨 Customization
+If timestamps aren't showing:
+1. Refresh the Dribbble page
+2. Check that the extension is enabled in `chrome://extensions/`
+3. Make sure you're on dribbble.com (not a subdomain)
 
-You can customize the appearance by editing `styles.css`:
+## Version
 
-```css
-.timestamp-checker-display {
-  /* Modify gradient colors */
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  
-  /* Adjust spacing */
-  padding: 20px;
-  margin: 20px 0;
-  
-  /* Change border radius */
-  border-radius: 12px;
-}
-```
+1.0 - Initial release
 
-## 🐛 Troubleshooting
+## License
 
-**Timestamps not showing?**
-- Refresh the Dribbble page
-- Verify the extension is enabled at `chrome://extensions/`
-- Ensure you're on a shot detail page (not the homepage)
-- Check that the URL matches `https://dribbble.com/*`
-
-**Console errors?**
-- Open DevTools (F12) and check for error messages
-- Verify JSON-LD script tags exist on the page
-
-## 🤝 Contributing
-
-Contributions are welcome! Here's how you can help:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📝 Version History
-
-- **1.0.0** - Initial release
-  - Timestamp extraction from JSON-LD
-  - Beautiful card display
-  - AJAX navigation support
-
-## 📄 License
-
-This project is licensed under the MIT License - feel free to use and modify.
-
-## 🙏 Acknowledgments
-
-- Built for the Dribbble community
-- Uses Dribbble's JSON-LD structured data
-- Inspired by the need for transparency in design posting dates
-
-## 📧 Contact
-
-Have questions or suggestions? Feel free to open an issue!
-
----
-
-Made with 💜 for designers who want to know when designs were actually posted
+Free to use and modify
